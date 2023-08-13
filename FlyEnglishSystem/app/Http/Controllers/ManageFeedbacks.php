@@ -75,11 +75,11 @@ class ManageFeedbacks extends Controller
     public function store(Request $request)
     {
       
-        if (is_null($request->input('good_feedback')) || is_null($request->input('improve_feedback'))) {
+        // if (is_null($request->input('good_feedback')) || is_null($request->input('improve_feedback'))) {
 
-            return redirect()->back()->with('error','Feedback set Error!');
+        //     return redirect()->back()->with('error','Feedback set Error!');
         
-        }
+        // }
         $prefixE = "";//save sa database book id array sample 1,2,3,4,5
         $prefix1 = "";
         $prefix = $request->input('book_id'); 
@@ -96,8 +96,8 @@ class ManageFeedbacks extends Controller
         $improves = array();
         $insertGoods = array();
         $insertImprove = array();
-        $ct = count($request->input('good_feedback'));
-        $ct1 = count($request->input('improve_feedback'));
+        $ct = count((array)$request->input('good_feedback'));
+        $ct1 = count((array)$request->input('improve_feedback'));
         $goods = $request->input('good_feedback');
         $improves = $request->input('improve_feedback');
 
@@ -195,14 +195,32 @@ class ManageFeedbacks extends Controller
         // $improve = ImproveFeedBack;
 
         // join TypeOfFeedback 
-        // join ManageFeedback 
+        // join ManageFeedback TypeOfFeedback
 
         $gd = GoodFeedBack::where('manage_id',$id)->get();
         $im = ImproveFeedBack::where('manage_id',$id)->get();
+        $gd_arr = array();
+        $im_arr = array();
+        
+        $result = $manage_feedbacks->book_id;
+        $ids = explode(',', $result); // Convert the string to an array
+        $book_result = Book::whereIn('id', $ids)->get();
 
+        foreach($gd as $g){
+            $gd_arr[] = $g->feed_back_id;
+        }
+        foreach($im as $i){
+            $im_arr[] = $i->feed_back_id;
+        }
+
+        $typ_gd = TypeOfFeedback::whereIn('id',$gd_arr)->get();
+        $typ_im = TypeOfFeedback::whereIn('id',$im_arr)->get();
+
+        
         return response()->json([   'id'=>$manage_feedbacks->id,
                                     'student_id'=>$manage_feedbacks->student_id,
                                     'book_id'=>$manage_feedbacks->book_id,
+                                    'book_result'=>  $book_result,
                                     'good_feedback_id'=>$manage_feedbacks->good_feedback,
                                     'improve_feedback_id'=>$manage_feedbacks->improve_feedback,
                                     'mispronounce'=>$manage_feedbacks->mispronounce,
@@ -212,6 +230,8 @@ class ManageFeedbacks extends Controller
                                     'homework'=>$manage_feedbacks->homework,
                                     'getidGood'=>($gd),
                                     'getidImprove'=>($im),
+                                    'getidGood_name'=>$typ_gd,
+                                    'getidImprove_name'=>$typ_im,
                                     'student_name'=>$students->student_name
                                 ]);
     }
@@ -250,11 +270,11 @@ class ManageFeedbacks extends Controller
 
         // $manage_feedbacks->update();
 
-        if (is_null($request->input('u_good_feedback')) || is_null($request->input('u_improve_feedback'))) {
+        // if (is_null($request->input('u_good_feedback')) || is_null($request->input('u_improve_feedback'))) {
 
-            return redirect()->back()->with('error','Feedback set Error!');
+        //     return redirect()->back()->with('error','Feedback set Error!');
         
-        }
+        // }
 
         GoodFeedBack::where('manage_id',$id)->delete();
 
@@ -267,8 +287,8 @@ class ManageFeedbacks extends Controller
         $improves = array();
         $insertGoods = array();
         $insertImprove = array();
-        $ct = count($request->input('u_good_feedback'));
-        $ct1 = count($request->input('u_improve_feedback'));
+        $ct = count((array)$request->input('u_good_feedback'));
+        $ct1 = count((array)$request->input('u_improve_feedback'));
         $goods = $request->input('u_good_feedback');
         $improves = $request->input('u_improve_feedback');
 

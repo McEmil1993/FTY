@@ -391,7 +391,7 @@
                             <div class="card-body">
                              
                                 <span class="default-message">
-                                    Thank you so much <span class="result result_name"></span>  for having the class today. Your presence and effort are much appreciated.
+                                    Thank you so much <u><span class="result result_name"></span></u>  for having the class today. Your presence and effort are much appreciated.
                                     Just continue learning and managing your time and you will become more successful in your learning journey.
                                 </span>
                            
@@ -406,25 +406,20 @@
                                 <label>
                                     <i class="fas fa-user"></i>
                                     STUDENT NAME : 
-                                    <label name="view_student_id" id="view_student_id">
-                                        @foreach ($pick_s as $viewStudent)
-                                        <span class="text-success1">
-                                            {{$viewStudent->student_name}}</span>
-                                        @endforeach
-                                    </label>
+                                    <br>
+                                        <span class="text-success1 result_name">
+                                           </span>
+                                       
+                                  
                                 </label>
                             </div>
                             <div class="col-lg-12">
                                 <label>
                                     <i class="fas fa-book"></i>
                                     BOOK/TOPIC/SESSION : 
-                                    <label name="view_book_id" id="view_book_id">
-                                        @foreach ($pick_b as $viewBook)
-                                        <span class="text-success1">
-                                            {{ str_replace(array('[',']','"'),' ',$viewBook->book_name . ' '. '(' . $viewBook->topic_name . ')' . ' ' . '-' . ' ' . 'Session' . ' ' .$viewBook->session ) }}
-                                        </span>
-                                        @endforeach
-                                    </label>
+                               
+                                        <span class="text-success1 book_name_result"><br></span>
+                                    
                                 </label>
                             </div>
                             <hr>
@@ -432,30 +427,22 @@
                                 <label>
                                     <i class="fas fa-exclamation-triangle text-danger"></i>
                                     MISPRONOUNCE WORD/S : 
-                                    <label name="view_mispronounce" id="view_mispronounce">
-                                    @foreach($pick_mf as $viewMispronounce)
-                                    @if($viewMispronounce->mispronounce != '')
-                                        <span class="text-success1">{{$viewMispronounce->mispronounce}}</span>
-                                    @else
-                                            <span class="text-danger1"><i>None</i></span>
-                                    @endif
-                                    @endforeach
-                                    </label>
+                                 
+                                        <span class="mispronounce_name_result"></span>
+                                        <!-- <span class="text-success1 mispronounce_name_result"></span> -->
+                                   
+                                            <!-- <span class="text-danger1"><i>None</i></span> -->
+                                   
+                                    
                                 </label>
                             </div>
                             <div class="col-lg-12">
                                 <label>
                                     <i class="fas fa-exclamation-triangle text-danger"></i>
                                     INCORRECT SENTENCE/S : 
-                                    <label name="view_incorrect" id="view_incorrect">
-                                    @foreach($pick_mf as $viewIncorrect)
-                                    @if($viewIncorrect->incorrect != '')
-                                            <span class="text-success1">{{$viewIncorrect->incorrect}}</span>
-                                    @else
-                                            <span class="text-danger1"><i>None</i></span>
-                                    @endif
-                                    @endforeach
-                                    </label>
+                                 
+                                    <span class="incorrect_name_result"></span>
+                        
                                 </label>
                             </div>
                             <hr>
@@ -463,34 +450,23 @@
                                 <label>
                                     <i class="fas fa-check text-success"></i>
                                     HOMEWORK CHECKING (TOPIC) : 
-                                    <label name="view_check_homework" id="view_check_homework">
-                                    @foreach($pick_mf as $viewMF)
-                                    @if($viewMF->check_homework && $viewMF->topic == '')
-                                            <span class="text-success1">
-                                                {{$viewMF->check_homework}}
+                                
+                                            <span class="check_homework_name_result">
+                                                
                                             </span>
-                                            <span class="text-success1">
-                                                {{$viewMF->topic}} 
-                                            </span>
-                                            <br>
-                                    @else
-                                            <span class="text-danger1"><i>None</i></span>
-                                    @endif
-                                    @endforeach
-                                    </label>
+                                   
                                 </label> 
                             </div>
                             <div class="col-lg-12">
                                 <label>
                                     <i class="far fa-file-alt"></i>
                                     HOMEWORK: 
-                                    <label name="view_homework" id="view_homework">
-                                    @foreach($pick_mf as $viewMF)                                   
-                                        <span class="text-success1">
-                                            {{$viewMF->homework}}
+                                         <br>
+                                        <span class="text-success1 homework_name_result">
+                                           
                                         </span>
-                                    @endforeach
-                                    </label>
+                         
+                                    
                                 </label> 
                             </div>
                         </div>
@@ -506,18 +482,12 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <label name="view_good_feedback" id="view_good_feedback">
-                                        @foreach($pick_gf as $viewGoodFeedback)
-                                        @if($viewGoodFeedback->status != '' && $viewGoodFeedback->status == 1)
-                                        <i class="fas fa-star text-warning"></i>
-                                            <span>
-                                            {{ str_replace(array('[',']','"'),' ',$viewGoodFeedback->feedback) }}
-                                            </span>
-                                        @else
-                                            <span class="text-danger1"><i>None</i></span>
-                                        @endif
-                                        @endforeach
-                                        </label>
+                                      
+                                        
+                                        <span class="good_feedback_name_result"> 
+
+                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -532,18 +502,11 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <label name="view_improve_feedback" id="view_improve_feedback">
-                                        @foreach($pick_if as $viewImproveFeedback)
-                                        @if($viewImproveFeedback->status != '' && $viewImproveFeedback->status == 2)
-                                        <i class="fas fa-exclamation-triangle text-danger"></i>
-                                            <span>
-                                            {{ str_replace(array('[',']','"'),' ',$viewImproveFeedback->feedback) }}
+                                    
+                                            <span class="improve_feedback_name_result">
                                             </span>
-                                        @else
-                                            <span class="text-danger1"><i>None</i></span>
-                                        @endif
-                                        @endforeach
-                                        </label>
+                                       
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -682,6 +645,12 @@
     });
 
     $('.view').click(function(){
+        $('.book_name_result').html('');
+        $('.mispronounce_name_result').html('');
+        $('.incorrect_name_result').html('');
+        $('.check_homework_name_result').html('');
+        $('.good_feedback_name_result').html('');
+        $('.improve_feedback_name_result').html('');
         // $(".u_good_feedback").prop("checked", false);
         // $(".u_improve_feedback").prop("checked", false);
         var id = $(this).attr('data-id');
@@ -690,9 +659,78 @@
             url         : "/edit_data/" + id,
             dataType    : "json",
             success     : function(data){
-                $('.result_name').html(data.student_name);
+                $('.result_name').html('<span>'+data.student_name+'</span>');
                 console.log(data);
 
+                // console.log(data.book_result[]);
+                for (let index = 0; index < data.book_result.length; index++) {
+                    console.log(data.book_result[index].book_name);
+                    $('.book_name_result').append('<br><i class="fa fa-circle" style="margin-right: 8px;color:black;font-size:10px"></i><span>'+data.book_result[index].book_name + '( '+ data.book_result[index].topic_name +' ) - '+ data.book_result[index].session+'</span>');
+                    // $('#u_good_feedback'+data.getidGood[index].feed_back_id).prop("checked", true);
+                }
+                // $('.mispronounce_name_result').html('NONE');
+                if(data.mispronounce === '' || data.mispronounce === null){
+                    $('.mispronounce_name_result').addClass('text-danger1');
+                    $('.mispronounce_name_result').removeClass('text-success1');
+                    $('.mispronounce_name_result').html('<br>NONE');
+                }else{
+                    $('.mispronounce_name_result').removeClass('text-danger1');
+                    $('.mispronounce_name_result').addClass('text-success1');
+                    $('.mispronounce_name_result').html('<br><i class="fa fa-circle" style="margin-right: 8px;color:black;font-size:10px"></i><span>'+data.mispronounce+'</span>');
+                }
+                if(data.incorrect === '' || data.incorrect === null){
+                    $('.incorrect_name_result').addClass('text-danger1');
+                    $('.incorrect_name_result').removeClass('text-success1');
+                    $('.incorrect_name_result').html('<br>NONE');
+                }else{
+                    $('.incorrect_name_result').removeClass('text-danger1');
+                    $('.incorrect_name_result').addClass('text-success1');
+                    $('.incorrect_name_result').html('<br><i class="fa fa-circle" style="margin-right: 8px;color:black;font-size:10px"></i><span>'+data.incorrect+'</span>');
+                }
+
+                //check_homework_name_result
+
+                if(data.topic === '' || data.topic === null && data.check_homework === '' || data.check_homework === null){
+                    $('.check_homework_name_result').addClass('text-danger1');
+                    $('.check_homework_name_result').removeClass('text-success1');
+                    $('.check_homework_name_result').html('<br>NONE');
+                }else{
+                    $('.check_homework_name_result').removeClass('text-danger1');
+                    $('.check_homework_name_result').addClass('text-success1');
+                    $('.check_homework_name_result').html('</br><i class="fa fa-circle" style="margin-right: 8px;color:black;font-size:10px"></i><span>'+data.check_homework+'</br><span style="margin-left: 18px;">'+ data.topic+'</span></span>');
+                }
+
+                $('.homework_name_result').text(data.homework);
+
+                if(data.getidGood_name.length === 0){
+                    $('.good_feedback_name_result').html('<br><span class="text-danger1"> NONE </span>');
+                }else{
+                    for (let index = 0; index < data.getidGood_name.length; index++) {
+                        $('.good_feedback_name_result').append('<i class="fas fa-star text-warning "></i><span class="text-success1">'+data.getidGood_name[index].feedback + '</span></br>');
+                    }
+                }
+
+                if(data.getidImprove_name.length === 0){
+                    $('.improve_feedback_name_result').html('<br><span class="text-danger1"> NONE </span>');
+                }else{
+                    for (let index = 0; index < data.getidImprove_name.length; index++) {
+                        $('.improve_feedback_name_result').append('<i class="fas fa-exclamation-triangle text-danger"></i><span class="text-success1">'+data.getidImprove_name[index].feedback + '</span></br>');
+                    }
+                }
+
+
+                // if(data.incorrect == '' || data.incorrect == null){ homework_name_result good_feedback_name_result improve_feedback_name_result
+                //     $('.incorrect_name_result').addClass('text-danger1');
+                //     $('.incorrect_name_result').removeClass('text-success1');
+                //     $('.incorrect_name_result').html('NONE');
+                // }else{
+                //     $('.incorrect_name_result').removeClass('text-danger1');
+                //     $('.incorrect_name_result').addClass('text-success1');
+                //     $('.incorrect_name_result').html(data.incorrect);
+                // }
+                // incorrect_name_result
+                    // book_name topic_name session
+                    // RAZKIDS (COUNTRY PLACES) - SESSION 1 RAZKIDS (COUNTRY PLACES) - SESSION 1 
                 // $.each(data.book_id.split(","), function(i,e){
                 //     $("#u_book_id option[value='" + e + "']").prop("selected", true).trigger('change');
                 // });
