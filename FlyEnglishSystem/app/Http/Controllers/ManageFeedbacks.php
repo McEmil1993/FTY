@@ -276,6 +276,10 @@ class ManageFeedbacks extends Controller
         
         // }
 
+
+
+        
+
         GoodFeedBack::where('manage_id',$id)->delete();
 
         ImproveFeedBack::where('manage_id',$id)->delete();
