@@ -104,8 +104,12 @@ class Students extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->input('delete_id');
+        $students = Student::find($id);
+
+        $students->delete();
+        return redirect()->back()->with('success','Student removed successfully.');
     }
 }
