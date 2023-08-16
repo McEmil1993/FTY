@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ManageFeedback extends Model
 {
-    protected $fillable = [ 'student_id',
+    protected $fillable = [ 'date',
+                            'student_id',
                             'book_id',
                             'good_feedback_id',
                             'improve_feedback_id',
                             'mispronounce',
                             'incorrect',
+                            'correct',
                             'check_homework',
                             'topic',
                             'homework'
