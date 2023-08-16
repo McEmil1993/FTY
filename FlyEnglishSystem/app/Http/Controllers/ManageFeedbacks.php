@@ -74,12 +74,7 @@ class ManageFeedbacks extends Controller
      */
     public function store(Request $request)
     {
-      
-        // if (is_null($request->input('good_feedback')) || is_null($request->input('improve_feedback'))) {
 
-        //     return redirect()->back()->with('error','Feedback set Error!');
-        
-        // }
         $prefixE = "";//save sa database book id array sample 1,2,3,4,5
         $prefix1 = "";
         $prefix = $request->input('book_id'); 
@@ -104,12 +99,14 @@ class ManageFeedbacks extends Controller
         
 
         $data = [
+            'date' => $request->input('date'),
             'student_id' => $request->input('student_id'),
             'book_id' => $prefixE,
             'good_feedback_id' => 0,
             'improve_feedback_id' => 0,
             'mispronounce' => $request->input('mispronounce'),
             'incorrect' => $request->input('incorrect'),
+            'correct' => $request->input('correct'),
             'check_homework' =>  $request->input('check_homework'),
             'topic' => $request->input('topic'),
             'homework' => $request->input('homework'),
@@ -134,7 +131,7 @@ class ManageFeedbacks extends Controller
         DB::table('improve_feed_backs')->insert($insertImprove);
 
         
-        return redirect()->back()->with('success','Feedback set successfully!');
+        return redirect()->back()->with('success','Feedback set successfully.');
     }
 
     /**
@@ -156,11 +153,6 @@ class ManageFeedbacks extends Controller
         ->where('manage_id', '=' , $id)
         ->get();
 
-        // if($manage_feedbacks){
-        //     return "1";
-        // }else{
-        //     return "0";
-        // }
         return $manage_feedbacks;
     }
 
@@ -169,12 +161,6 @@ class ManageFeedbacks extends Controller
         $manage_feedbacks = DB::table('improve_feed_backs')
         ->where('manage_id', '=' , $id)
         ->get();
-
-        // if($manage_feedbacks){
-        //     return "1";
-        // }else{
-        //     return "0";
-        // }
 
         return $manage_feedbacks;
     }
@@ -191,11 +177,6 @@ class ManageFeedbacks extends Controller
         $manage_feedbacks = ManageFeedback::find($id);
         
         $students = Student::find($manage_feedbacks->student_id);
-        // $good_ =  GoodFeedBack;
-        // $improve = ImproveFeedBack;
-
-        // join TypeOfFeedback 
-        // join ManageFeedback TypeOfFeedback
 
         $gd = GoodFeedBack::where('manage_id',$id)->get();
         $im = ImproveFeedBack::where('manage_id',$id)->get();
@@ -218,6 +199,7 @@ class ManageFeedbacks extends Controller
 
         
         return response()->json([   'id'=>$manage_feedbacks->id,
+                                    'date'=>$manage_feedbacks->date,
                                     'student_id'=>$manage_feedbacks->student_id,
                                     'book_id'=>$manage_feedbacks->book_id,
                                     'book_result'=>  $book_result,
@@ -225,6 +207,7 @@ class ManageFeedbacks extends Controller
                                     'improve_feedback_id'=>$manage_feedbacks->improve_feedback,
                                     'mispronounce'=>$manage_feedbacks->mispronounce,
                                     'incorrect'=>$manage_feedbacks->incorrect,
+                                    'correct'=>$manage_feedbacks->correct,
                                     'check_homework'=>$manage_feedbacks->check_homework,
                                     'topic'=>$manage_feedbacks->topic,
                                     'homework'=>$manage_feedbacks->homework,
@@ -256,30 +239,6 @@ class ManageFeedbacks extends Controller
     {
         $id = $request->input('update_id');
 
-        // $manage_feedbacks = ManageFeedback::find($id);
-
-        // $manage_feedbacks->student_id = $request->input('u_student_id');
-        // $manage_feedbacks->book_id = $request->input('u_book_id');
-        // $manage_feedbacks->good_feedback_id = $request->input('u_good_feedback');
-        // $manage_feedbacks->improve_feedback_id = $request->input('u_improve_feedback');
-        // $manage_feedbacks->mispronounce = $request->input('u_mispronounce');
-        // $manage_feedbacks->incorrect = $request->input('u_incorrect');
-        // $manage_feedbacks->check_homework = $request->input('u_check_homework');
-        // $manage_feedbacks->topic = $request->input('u_topic');
-        // $manage_feedbacks->homework = $request->input('u_homework');
-
-        // $manage_feedbacks->update();
-
-        // if (is_null($request->input('u_good_feedback')) || is_null($request->input('u_improve_feedback'))) {
-
-        //     return redirect()->back()->with('error','Feedback set Error!');
-        
-        // }
-
-
-
-        
-
         GoodFeedBack::where('manage_id',$id)->delete();
 
         ImproveFeedBack::where('manage_id',$id)->delete();
@@ -306,12 +265,14 @@ class ManageFeedbacks extends Controller
         }  
 
         $data = [
+            'date' => $request->input('u_date'),
             'student_id' => $request->input('u_student_id'),
             'book_id' => $prefixE,
             'good_feedback_id' => 0,
             'improve_feedback_id' => 0,
             'mispronounce' => $request->input('u_mispronounce'),
             'incorrect' => $request->input('u_incorrect'),
+            'correct' => $request->input('u_correct'),
             'check_homework' =>  $request->input('u_check_homework'),
             'topic' => $request->input('u_topic'),
             'homework' => $request->input('u_homework'),
@@ -337,7 +298,7 @@ class ManageFeedbacks extends Controller
         DB::table('improve_feed_backs')->insert($insertImprove);
 
 
-        return redirect()->back()->with('success','Successfully updated!');
+        return redirect()->back()->with('success','Successfully updated.');
 
     }
 
@@ -347,20 +308,32 @@ class ManageFeedbacks extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->input('delete_id');
+        $manage_feedbacks = ManageFeedback::find($id);
+
+        $manage_feedbacks->delete();
+        return redirect()->back()->with('success','Data removed successfully.');
+    }
+
+    public function destroyAll()
+    {
+        $manage_feedbacks = ManageFeedback::all();
+
+        if ($manage_feedbacks->isNotEmpty()) {
+            // Perform the deletion
+            ManageFeedback::truncate(); // This will delete all data from the table
+            return redirect()->back()->with('success','All data deleted successfully.');
+        } else {
+            return redirect()->back()->with('error','No data is available in the table.');
+        }
     }
 
     public function view_data($id)
     {
         $manage_feedbacks = ManageFeedback::find($id);
 
-        // $good_ =  GoodFeedBack;
-        // $improve = ImproveFeedBack;
-
-        // join TypeOfFeedback 
-        // join ManageFeedback 
         $goods = array();
         $improves = array();
 
@@ -377,20 +350,6 @@ class ManageFeedbacks extends Controller
         echo json_encode($goods);
         echo "<br>";
         echo json_encode($improves);
-
-        // return response()->json([   'id'=>$manage_feedbacks->id,
-        //                             'student_id'=>$manage_feedbacks->student_id,
-        //                             'book_id'=>$manage_feedbacks->book_id,
-        //                             'good_feedback_id'=>$manage_feedbacks->good_feedback,
-        //                             'improve_feedback_id'=>$manage_feedbacks->improve_feedback,
-        //                             'mispronounce'=>$manage_feedbacks->mispronounce,
-        //                             'incorrect'=>$manage_feedbacks->incorrect,
-        //                             'check_homework'=>$manage_feedbacks->check_homework,
-        //                             'topic'=>$manage_feedbacks->topic,
-        //                             'homework'=>$manage_feedbacks->homework,
-        //                             'getidGood'=>($gd),
-        //                             'getidImprove'=>($im)
-        //                         ]);
     }
 
 }
