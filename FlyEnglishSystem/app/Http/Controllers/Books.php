@@ -103,8 +103,12 @@ class Books extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->input('delete_id');
+        $book = Book::find($id);
+
+        $book->delete();
+        return redirect()->back()->with('success','Book removed successfully.');
     }
 }
