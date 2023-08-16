@@ -15,15 +15,17 @@ class CreateManageFeedbackTable extends Migration
     {
         Schema::create('manage_feedback', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->integer('student_id');
             $table->text('book_id');
             $table->integer('good_feedback_id')->nullable();
             $table->integer('improve_feedback_id')->nullable();
             $table->text('mispronounce')->nullable();
             $table->text('incorrect')->nullable();
+            $table->text('correct')->nullable();
             $table->text('check_homework')->nullable();
             $table->text('topic')->nullable();
-            $table->text('homework');
+            $table->text('homework')->nullable();
             $table->timestamps();
         });
     }

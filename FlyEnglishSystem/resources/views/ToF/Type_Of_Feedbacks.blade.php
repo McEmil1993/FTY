@@ -6,7 +6,7 @@
         <div class="row p-2">
             <div class="col-md-10"></div>
             <div class="col-md-2">
-                <button class="btn btn-success btn-md" style="width:160px;padding-right:0px; padding-left:0px;" data-toggle="modal" data-target="#add_feedbacks" data-backdrop="static" data-keyboard="false">
+                <button class="btn bg-gradient-success btn-md" style="width:160px;padding-right:0px; padding-left:0px;" data-toggle="modal" data-target="#add_feedbacks" data-backdrop="static" data-keyboard="false">
                     <b><i class="fas fa-plus"></i> ADD FEEDBACK</b>
                 </button>
             </div>
@@ -14,7 +14,7 @@
         <div class="row">
             <!-- Good Feedback Table -->
             <div class="col-lg-6">
-                <div class="card" style="height: 550px;">
+                <div class="card">
                     <div class="card-header"><!-- /.card-header -->
                         <h5>
                             <b>
@@ -30,8 +30,8 @@
                             <i class="fas fa-star text-warning"></i>
                         </div>
                     </div>
-                    <div class="card-body text-center"><!-- /.card-body -->
-                        <table id="example1" class="table table-bordered table-striped">
+                    <div class="card-body table-responsive text-center"><!-- /.card-body -->
+                        <table id="example1" class="table text-nowrap table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Feedbacks</th>
@@ -47,7 +47,7 @@
                                         {{$tof->feedback}}
                                     </td>
                                     <td>
-                                        <button class="btn btn-md btn-primary update" data-id="{{$tof->id}}" data-toggle="modal" data-target="#update_good_feedbacks" data-backdrop="static" data-keyboard="false">
+                                        <button class="btn btn-md bg-gradient-primary update" data-id="{{$tof->id}}" data-toggle="modal" data-target="#update_good_feedbacks" data-backdrop="static" data-keyboard="false">
                                             <i class="fas fa-edit"></i> Edit
                                         </button>
                                     </td>
@@ -62,12 +62,12 @@
 
             <!-- Bad Feedback Table -->
             <div class="col-lg-6">
-                <div class="card" style="height: 550px;">
+                <div class="card">
                     <div class="card-header"><!-- /.card-header -->
                         <h5>
                             <b>
                                 <i class="fas fa-exclamation-triangle text-danger"></i>
-                                NEED/NEEDS TO IMPROVE
+                                NEEDS TO REMEMBER
                             </b>
                         </h5>
                     </div>
@@ -95,7 +95,7 @@
                                         {{$tof->feedback}}
                                     </td>
                                     <td>
-                                        <button class="btn btn-md btn-primary improve" data-id="{{$tof->id}}" data-toggle="modal" data-target="#update_improve_feedbacks" data-backdrop="static" data-keyboard="false">
+                                        <button class="btn btn-md bg-gradient-primary improve" data-id="{{$tof->id}}" data-toggle="modal" data-target="#update_improve_feedbacks" data-backdrop="static" data-keyboard="false">
                                             <i class="fas fa-edit"></i>Edit
                                         </button>
                                     </td>
@@ -134,14 +134,16 @@
                             <select class="form-control" id="status" name="status" required>
                                 <option value="" selected disabled>Select Feedback Type</option>
                                 <option value="1">Good Feedback</option>
-                                <option value="2">Need/Needs to Improve</option>
+                                <option value="2">Need/Needs to Remember</option>
                             </select>
                         </div>
                     </div> 
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" id="submit">Submit</button>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                        <button type="submit" class="btn bg-gradient-success" id="submit"><i class="fas fa-check"></i> Submit</button>
+                    </div>
                 </div>
             </form>        
         </div><!-- /.modal-content --> 
@@ -168,9 +170,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" id="update">Save Changes</button>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                        <button type="submit" class="btn bg-gradient-primary" id="update"><i class="fas fa-check"></i> Save Changes</button>
+                    </div>
                 </div>
             </form>          
         </div><!-- /.modal-content --> 
@@ -184,7 +188,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <i class="fas fa-exclamation-triangle text-danger"></i> UPDATE (Need/Needs to improve)
+                    <i class="fas fa-exclamation-triangle text-danger"></i> UPDATE (Need/Needs to remember)
                 </h4>
             </div>
             <form action="{{route ('update_improve_feedback') }}" method="post">
@@ -199,15 +203,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" id="update">Save Changes</button>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                        <button type="submit" class="btn bg-gradient-success" id="update"><i class="fas fa-check"></i> Save Changes</button>
+                    </div>
                 </div>
             </form>          
         </div><!-- /.modal-content --> 
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+<!-- Delete particular data -->
+<div class="modal fade" id="delete_tof">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-trash-alt"></i> Remove Student</h4>
+            </div>
+            <form action="{{route ('deleteStudent') }}" method="POST">
+                <input type="hidden" name="delete_id" id="delete_id"></input>
+                <div class="modal-body">
+                    @csrf
+                    <center>
+                        <h4>Are you sure you want to remove?</h4>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="submit" class="btn bg-gradient-success" id="submit">
+                            <i class="fas fa-check"></i> YES
+                        </button>
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">
+                            <i class="fas fa-times"></i> CANCEL
+                        </button>
+                    </div>
+                </div>
+            </form>        
+        </div><!-- /.modal-content --> 
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 @if(session('success'))
@@ -228,15 +264,16 @@
         "responsive": true, 
         "lengthChange": false, 
         "autoWidth": false,
-        "ordering": false,
-        "lengthMenu": [[5, 6, 9, 12, -1], [5, 6, 9, 12, "All"]],
+        "ordering": true,
+        "lengthMenu": [[8, 9, 12, 15, -1], [8, 9, 12, 15, "All"]]
         // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
         "responsive": true, 
         "lengthChange": false, 
         "autoWidth": false,
-        "ordering": false,
+        "ordering": true,
+        "lengthMenu": [[8, 9, 12, 15, -1], [8, 9, 12, 15, "All"]]
     });
   });
 </script>

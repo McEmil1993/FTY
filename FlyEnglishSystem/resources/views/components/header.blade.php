@@ -85,26 +85,22 @@
 	}
 
 	.modal .modal-dialog .modal-content .modal-header{
-		background-color: cadetblue;
+		background-color: lightcyan;
 	}
 
 	.modal .modal-dialog .modal-content .modal-footer{
-		background-color: cadetblue;
-	}
-
-	.sf{
 		background-color: lightcyan;
 	}
 
 	.text-success1{
-		font-size: 17px;
+		font-size: 15px;
 		text-transform: uppercase;
 		margin-left: 10px;
 		color: #28a745!important;
 	}
 
 	.text-danger1{
-		font-size: 17px;
+		font-size: 15px;
 		text-transform: uppercase;
 		margin-left: 10px;
 		font-weight: bolder;
@@ -113,8 +109,7 @@
 
 	.default-message{
 		text-align: justify;
-		font-size: 17px;
-		font-style: italic;
+		font-size: 15px;
 		font-weight: bolder;
 	}
 
@@ -139,5 +134,13 @@
 
 	.result{
 		text-transform: uppercase;
+	}
+
+	hr{
+		border: 1px cadetblue solid;
+	}
+
+	.viewModal{
+		font-size: 15px;
 	}
 </style>

@@ -6,12 +6,12 @@
         <div class="row p-2">
             <div class="col-md-10"></div>
             <div class="col-md-2">
-                <button class="btn btn-success btn-md" style="width:160px" data-toggle="modal" data-target="#add_book" data-backdrop="static" data-keyboard="false">
+                <button class="btn bg-gradient-success btn-md" style="width:160px" data-toggle="modal" data-target="#add_book" data-backdrop="static" data-keyboard="false">
                     <b><i class="fas fa-plus"></i> ADD BOOK</b>
                 </button>
             </div>
         </div>
-        <div class="card" style="height: 550px;">
+        <div class="card">
             <div class="card-header"><!-- /.card-header -->
                 <h5><b>LIST OF BOOKS</b></h5>
             </div>
@@ -29,11 +29,22 @@
                         @foreach ($book as $books)
                         <tr>
                             <td>{{$books->book_name}}</td>
+                            @if($books->topic_name != '')
                             <td>{{$books->topic_name}}</td>
-                            <td>Session {{$books->session}}</td>
+                            @else
+                                <td>None</td>
+                            @endif
+                            @if($books->session != '')
+                                <td>Session {{$books->session}}</td>
+                            @else
+                                <td>None</td>
+                            @endif
                             <td>
-                                <button class="btn btn-md btn-primary update" data-id="{{$books->id}}" data-toggle="modal" data-target="#update_book" data-backdrop="static" data-keyboard="false">
-                                    <i class="fas fa-edit"></i>Edit
+                                <button class="btn btn-md bg-gradient-primary update" data-id="{{$books->id}}" data-toggle="modal" data-target="#update_book" data-backdrop="static" data-keyboard="false">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-md bg-gradient-danger delete" data-id="{{$books->id}}" data-toggle="modal" data-target="#delete_book" data-backdrop="static" data-keyboard="false">
+                                    <i class="fas fa-trash-alt"></i> Remove
                                 </button>
                             </td>
                         </tr>
@@ -65,19 +76,21 @@
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <label>Name of the Topic :</label>
-                            <input class="form-control" name="topic_name" id="topic_name" placeholder="Type the name of the topic" required>
+                            <input class="form-control" name="topic_name" id="topic_name" placeholder="Type the name of the topic">
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <label>Session:</label>
-                            <input type="number" class="form-control" name="session" id="session" placeholder="Input number only..." required>
+                            <input type="number" class="form-control" name="session" id="session" placeholder="Input number only...">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" id="submit">Submit</button>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                        <button type="submit" class="btn bg-gradient-success" id="submit"><i class="fas fa-check"></i> Submit</button>
+                    </div>
                 </div>
             </form>        
         </div><!-- /.modal-content --> 
@@ -108,19 +121,21 @@
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <label>Name of the Topic :</label>
-                            <input class="form-control" name="update_topic_name" id="update_topic_name" placeholder="Type the name of the topic" required>
+                            <input class="form-control" name="update_topic_name" id="update_topic_name" placeholder="Type the name of the topic">
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <label>Session:</label>
-                            <input type="number" class="form-control" name="update_session" id="update_session" placeholder="Input number only..." required>
+                            <input type="number" class="form-control" name="update_session" id="update_session" placeholder="Input number only...">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" id="update">Save Changes</button>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                        <button type="submit" class="btn bg-gradient-primary" id="update"><i class="fas fa-check"></i> Save Changes</button>
+                    </div>
                 </div> 
             </form>         
         </div><!-- /.modal-content --> 
@@ -128,8 +143,46 @@
 </div><!-- /.modal --> 
 
 
+<!-- Delete particular data -->
+<div class="modal fade" id="delete_book">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-trash-alt"></i> Remove</h4>
+            </div>
+            <form action="{{route ('deleteBook') }}" method="POST">
+                <input type="hidden" name="delete_id" id="delete_id"></input>
+                <div class="modal-body">
+                    @csrf
+                    <center>
+                        <h4>Are you sure you want to remove?</h4>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="submit" class="btn bg-gradient-success" id="submit">
+                            <i class="fas fa-check"></i> YES
+                        </button>
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">
+                            <i class="fas fa-times"></i> CANCEL
+                        </button>
+                    </div>
+                </div>
+            </form>        
+        </div><!-- /.modal-content --> 
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script type="text/javascript">
     $('#active_book').addClass('new_active');
+</script>
+
+<script type="text/javascript">
+    $('.delete').click(function(){
+        var id= $(this).attr('data-id');
+        $('#delete_id').val(id);
+    });
 </script>
 
 @if(session('success'))
@@ -144,8 +197,8 @@
         "responsive": true, 
         "lengthChange": false, 
         "autoWidth": false,
-        "ordering": false,
-        "lengthMenu": [[5, 6, 9, 12, -1], [5, 6, 9, 12, "All"]],
+        "ordering": true,
+        "lengthMenu": [[8, 9, 12, 15, -1], [8, 9, 12, 15, "All"]]
         // "buttons": ["csv","pdf","","",""]
         // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

@@ -11,7 +11,7 @@
 
                 <li class="nav-item">
                     <a href="{{route ('Home') }}" class="nav-link" id="active_dashboard">
-                        <i class="nav-icon fas fa-home"></i>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
