@@ -18,7 +18,7 @@
                         <h5><b>FEEDBACKS OF THE STUDENT</b></h5>
                     </div>
                     <div class="col-lg-2">
-                        <button class="btn btn-block bg-gradient-dark" data-toggle="modal" data-target="#deleteall" data-backdrop="static" data-keyboard="false">
+                        <button class="btn btn-block bg-gradient-dark d_all" data-toggle="modal" data-target="#deleteall" data-backdrop="static" data-keyboard="false">
                             <i class="fas fa-trash-alt"></i> Delete All
                         </button>
                     </div>
@@ -232,7 +232,7 @@
             </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <select class="form-control select2bs4" name="u_student_id" id="u_student_id" required>
                                 <option value="" selected disabled>Select Student</option>
                                 @foreach($manage_students as $ups)
@@ -240,7 +240,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-lg-6 select2-cyan">
+                        <div class="col-lg-8 select2-cyan">
                             <select class="form-group select2" multiple="multiple"
                             data-dropdown-css-class="select2-cyan" name="u_book_id[]" data-placeholder="Select Book" id="u_book_id" required>
                                 @foreach($manage_books as $upb)
@@ -411,6 +411,7 @@
                                 STUDENT NAME : 
                                 <span class="text-success1 result_name"></span>
                             </label>
+                            </br>
                             <label>
                                 <i class="fas fa-book"></i>
                                 BOOK/TOPIC/SESSION : 

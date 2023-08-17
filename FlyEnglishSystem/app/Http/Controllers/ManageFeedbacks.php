@@ -177,6 +177,7 @@ class ManageFeedbacks extends Controller
         $manage_feedbacks = ManageFeedback::find($id);
         
         $students = Student::find($manage_feedbacks->student_id);
+        $books = Book::find($manage_feedbacks->book_id);
 
         $gd = GoodFeedBack::where('manage_id',$id)->get();
         $im = ImproveFeedBack::where('manage_id',$id)->get();
@@ -312,6 +313,8 @@ class ManageFeedbacks extends Controller
     {
         $id = $request->input('delete_id');
         $manage_feedbacks = ManageFeedback::find($id);
+        GoodFeedBack::where('manage_id',$id)->delete();
+        ImproveFeedBack::where('manage_id',$id)->delete();
 
         $manage_feedbacks->delete();
         return redirect()->back()->with('success','Data removed successfully.');
@@ -319,11 +322,15 @@ class ManageFeedbacks extends Controller
 
     public function destroyAll()
     {
+
         $manage_feedbacks = ManageFeedback::all();
 
         if ($manage_feedbacks->isNotEmpty()) {
             // Perform the deletion
             ManageFeedback::truncate(); // This will delete all data from the table
+            GoodFeedBack::truncate();
+            ImproveFeedBack::truncate();
+            
             return redirect()->back()->with('success','All data deleted successfully.');
         } else {
             return redirect()->back()->with('error','No data is available in the table.');
