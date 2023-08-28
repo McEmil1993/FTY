@@ -491,7 +491,7 @@
                 <div class="float-right">
                     <button type="button" class="btn bg-gradient-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
                     <a class="btn btn-md bg-gradient-dark toDL" id="Download">
-                        <i class="fas fa-download"></i> Download as .png
+                        <i class="fas fa-download"></i> Capture as img.
                     </a>
                 </div>
             </div>          

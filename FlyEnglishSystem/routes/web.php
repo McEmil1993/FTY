@@ -45,6 +45,7 @@ Route::post('add_books',[App\Http\Controllers\Books::class, 'store'])->name('add
 Route::get('/edit_books/{id}',[App\Http\Controllers\Books::class,'edit'])->name('edit_books');
 Route::post('update_books',[App\Http\Controllers\Books::class, 'update'])->name('update_books');
 Route::post('deleteBook',[App\Http\Controllers\Books::class, 'destroy'])->name('deleteBook');
+Route::post('delete_all_books',[App\Http\Controllers\Books::class, 'destroyAlldestroyAllBooks'])->name('delete_all_books');
 
 
 // Manage Feedbacks

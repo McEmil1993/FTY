@@ -13,7 +13,16 @@
         </div>
         <div class="card">
             <div class="card-header"><!-- /.card-header -->
-                <h5><b>LIST OF BOOKS</b></h5>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h5><b>LIST OF BOOKS</b></h5>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-block bg-gradient-dark d_all" data-toggle="modal" data-target="#deleteall" data-backdrop="static" data-keyboard="false">
+                            <i class="fas fa-trash-alt"></i> Delete All
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="card-body text-center"><!-- /.card-body -->
                 <table id="example1" class="table table-bordered table-striped">
@@ -141,6 +150,35 @@
         </div><!-- /.modal-content --> 
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal --> 
+
+
+<!-- Delete all data -->
+<div class="modal fade" id="deleteall">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-trash-alt"></i> Delete All Books</h4>
+            </div>
+            <form action="{{route ('delete_all_books') }}" method="POST">
+                <input type="hidden" name="deleteall_id" id="deleteall_id"></input>
+                <div class="modal-body">
+                    @csrf
+                    <center><h4>Are you sure you want to delete all books<i class="fas fa-question"></i></h4></center>
+                </div>
+                <div class="modal-footer">
+                    <div class="float-right">
+                        <button type="submit" class="btn bg-gradient-success" id="submit">
+                            <i class="fas fa-check"></i> YES
+                        </button>
+                        <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> CANCEL
+                        </button>
+                    </div>
+                </div>
+            </form>        
+        </div><!-- /.modal-content --> 
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <!-- Delete particular data -->

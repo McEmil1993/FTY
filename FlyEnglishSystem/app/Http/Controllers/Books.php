@@ -111,4 +111,18 @@ class Books extends Controller
         $book->delete();
         return redirect()->back()->with('success','Book removed successfully.');
     }
+
+    public function destroyAllBooks()
+    {
+        $book = Book::all();
+        
+        if ($book->isNotEmpty()) {
+            // Perform the deletion
+            Book::truncate(); // This will delete all data from the table
+            return redirect()->back()->with('success','All books deleted successfully.');
+
+        } else {
+            return redirect()->back()->with('error','No books is available in the table.');
+        }
+    }
 }
